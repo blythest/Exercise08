@@ -37,13 +37,14 @@ def make_text(chains):
 
     #TODO: End with a punctuation (!?.)
     
-    upper_bound = 10
-    lower_bound = 2
+    # upper_bound = 10
+    # lower_bound = 2
     string = ""
-    for i in range(lower_bound, upper_bound + 1):
+    counter = 0
+    while len(string) < 110:
         # Check to see if we are on the first loop by checking if i equals our
         # lower bound
-        if i == lower_bound:
+        if counter == 0:
             # Instantiate the empty strings seed_x, since we need to test on it
             # before our script sets it.
             seed_x = ""
@@ -67,6 +68,9 @@ def make_text(chains):
             random_key = (y, random_word)
             # append the newest random_word to our string
             string = string + " " + random_word
+        
+        #Increment the counter
+        counter += 1
     
     # if we hit our upper_bound and random_word[-1] in ('.?!"')
     # build our final string. otherwise keep going until random_word[-1] in ('.?!"')
@@ -86,19 +90,22 @@ def make_text(chains):
 
 def main():
     args = sys.argv
+    
+    #TODO: Incorporate the file reading into a function
+    # read input_text from file 1
     f = open(args[1])
-
-
-    # read input_text from a file
     input_text = f.read()
     f.close()
+
+    # read input text from file 2
     f = open(args[2])
     input_text = input_text + f.read()
     f.close()
 
     chain_dict = make_chains(input_text)
     random_text = make_text(chain_dict)
-    twitter_junk(random_text)
+    # twitter_junk(random_text)
+    print len(random_text)
     print random_text
 
 if __name__ == "__main__":
